@@ -1,0 +1,50 @@
+[
+  {
+    "nome": "João Silva",
+    "turma": "60d21b467db67c0038a4e0f2",
+    "notas": [
+      {
+        "_id": "60d21b467db67c0038a4e0f4",
+        "materia": "60d21b467db67c0038a4e0f1",
+        "bimestres": [
+          { "notas": [8.0, 7.5], "media": 7.75 },
+          { "notas": [8.0, 7.5], "media": 7.75 },
+          { "notas": [8.0, 7.5], "media": 7.75 },
+          { "notas": [8.0, 7.5], "media": 7.75 }
+        ]
+      }
+    ]
+  },
+    {
+        "nome": "Maria Silva",
+        "turma": "60d21b467db67c0038a4e0f2",
+        "notas": [
+        {
+            "_id": "60d21b467db67c0038a4e0f5",
+            "materia": "60d21b467db67c0038a4e0f1",
+            "bimestres": [
+            { "notas": [8.0, 7.5], "media": 7.75 },
+            { "notas": [8.0, 7.5], "media": 7.75 },
+            { "notas": [8.0, 7.5], "media": 7.75 },
+            { "notas": [8.0, 7.5], "media": 7.75 }
+            ]
+        }
+        ]
+    },
+    {
+        "nome": "José Silva",
+        "turma": "60d21b467db67c0038a4e0i6",
+        "notas": [
+        {
+            "_id": "60d21b467db67c0038a4e0f6",
+            "materia": "60d21b467db67c0038a4e0f1",
+            "bimestres": [
+            { "notas": [8.0, 7.5], "media": 7.75 },
+            { "notas": [8.0, 7.5], "media": 7.75 },
+            { "notas": [8.0, 7.5], "media": 7.75 },
+            { "notas": [8.0, 7.5], "media": 7.75 }
+            ]
+        }
+        ]
+    }
+]
