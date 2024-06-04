@@ -3,6 +3,7 @@
     "_id": "60d21b467db67c0038a4e0f1",
     "nome": "João Silva",
     "turma": "60d21b467db67c0038a4e0f2",
+    "turno": "manhã",
     "notas": [
       {
         "_id": "60d21b467db67c0038a4e0f4",
@@ -20,6 +21,7 @@
         "_id": "60d21b467db67c0038a4e0f2",
         "nome": "Maria Silva",
         "turma": "60d21b467db67c0038a4e0f2",
+        "turno": "noite",
         "notas": [
         {
             "_id": "60d21b467db67c0038a4e0f5",
@@ -37,6 +39,7 @@
         "_id": "60d21b467db67c0038a4e0f3",
         "nome": "José Silva",
         "turma": "60d21b467db67c0038a4e0i6",
+        "turno": "tarde",
         "notas": [
         {
             "_id": "60d21b467db67c0038a4e0f6",

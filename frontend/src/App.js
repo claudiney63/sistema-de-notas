@@ -1,11 +1,16 @@
 import React from 'react'
 import Home from './components/Home';
-import StudentTable from './components/Aluno';
-import Turmas from './components/Turmas';
+import Alunos from './components/Alunos';
+import AdicionarTurma from './components/AdicionarTurma';
+import AdicionarProfessor from './components/AdicionarProfessor';
+import AdicionarMateria from './components/AdicionarMateria';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <Turmas />
+    <>
+    <Alunos/>
+    </>
   );
 }
 

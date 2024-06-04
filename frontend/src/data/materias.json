@@ -1,15 +1,18 @@
 [
     {
+        "_id": "60c72b2f9b1d4b1234c5d345",
         "nome": "Matemática",
         "descricao": "Matéria de Matemática",
         "professor": "60c72b2f9b1d4b1234c5d345"
     },
     {
+        "_id": "60c72b2f9b1d4b1234c5d346",
         "nome": "Português",
         "descricao": "Matéria de Português",
         "professor": "60c72b2f9b1d4b1234c5d345"
     },
     {
+        "_id": "60c72b2f9b1d4b1234c5d347",
         "nome": "História",
         "descricao": "Matéria de História",
         "professor": "60c72b2f9b1d4b1234c5d345"

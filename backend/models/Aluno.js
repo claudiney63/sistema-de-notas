@@ -12,6 +12,7 @@ const NotaSchema = new mongoose.Schema({
 const AlunoSchema = new mongoose.Schema({
     nome: { type: String, required: true },
     turma: { type: mongoose.Schema.Types.ObjectId, ref: 'Turma' },
+    turno: { type: String, enum: ['Manhã', 'Tarde', 'Noite'], required: true },
     notas: [NotaSchema],
     faltas: Number
 })

@@ -1,11 +1,9 @@
 const Turma = require('../models/Turma');
-const Aluno = require('../models/Aluno');
-const Materia = require('../models/Materia');
 
 // Listar todas as turmas
 exports.getAllTurmas = async (req, res) => {
     try {
-        const turmas = await Turma.find().populate('alunos').populate('materias');
+        const turmas = await Turma.find()
         res.status(200).json(turmas);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -16,8 +14,6 @@ exports.getAllTurmas = async (req, res) => {
 exports.createTurma = async (req, res) => {
     const turma = new Turma({
         nome: req.body.nome,
-        alunos: req.body.alunos || [],
-        materias: req.body.materias || []
     });
 
     try {
@@ -38,12 +34,6 @@ exports.updateTurma = async (req, res) => {
 
         if (req.body.nome != null) {
             turma.nome = req.body.nome;
-        }
-        if (req.body.alunos != null) {
-            turma.alunos = req.body.alunos;
-        }
-        if (req.body.materias != null) {
-            turma.materias = req.body.materias;
         }
 
         const updatedTurma = await turma.save();

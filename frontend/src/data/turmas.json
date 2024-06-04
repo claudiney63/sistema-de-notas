@@ -1,22 +1,18 @@
 [
     {
-        "nome": "Turma A",
-        "alunos": ["60c72b2f9b1d4b1234c5d123", "60c72b2f9b1d4b1234c5d456"],
-        "materias": ["60c72b2f9b1d4b1234c5d234", "60c72b2f9b1d4b1234c5d567"]
+        "_id": "5f8f1b3b9b3b3b001f3b3b3b",
+        "nome": "Turma A"
     },
     {
-        "nome": "Turma B",
-        "alunos": ["60c72b2f9b1d4b1234c5d789", "60c72b2f9b1d4b1234c5d012"],
-        "materias": ["60c72b2f9b1d4b1234c5d345", "60c72b2f9b1d4b1234c5d678"]
+        "_id": "5f8f1b3b9b3b3b001f3b3b3c",
+        "nome": "Turma B"
     },
     {
-        "nome": "Turma C",
-        "alunos": ["60c72b2f9b1d4b1234c5d901", "60c72b2f9b1d4b1234c5d234"],
-        "materias": ["60c72b2f9b1d4b1234c5d456", "60c72b2f9b1d4b1234c5d789"]
+        "_id": "5f8f1b3b9b3b3b001f3b3b3d",
+        "nome": "Turma C"
     },
     {
-        "nome": "Turma D",
-        "alunos": ["60c72b2f9b1d4b1234c5d567", "60c72b2f9b1d4b1234c5d890"],
-        "materias": ["60c72b2f9b1d4b1234c5d012", "60c72b2f9b1d4b1234c5d345"]
+        "_id": "5f8f1b3b9b3b3b001f3b3b3e",
+        "nome": "Turma D"
     }
 ]

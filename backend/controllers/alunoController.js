@@ -29,6 +29,7 @@ exports.createAluno = async (req, res) => {
     const aluno = new Aluno({
         nome: req.body.nome,
         turma: req.body.turma,
+        turno: req.body.turno,
         notas: notas,
         faltas: req.body.faltas || 0
     });
@@ -54,6 +55,9 @@ exports.updateAluno = async (req, res) => {
         }
         if (req.body.turma != null) {
             aluno.turma = req.body.turma;
+        }
+        if (req.body.turno != null) {
+            aluno.turno = req.body.turno;
         }
         if (req.body.notas != null) {
             aluno.notas = req.body.notas.map(nota => ({
