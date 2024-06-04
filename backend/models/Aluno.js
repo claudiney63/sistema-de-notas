@@ -6,15 +6,15 @@ const NotaSchema = new mongoose.Schema({
         notas: [Number],  // Duas notas por bimestre
         media: Number,     // Média do bimestre
         
-    }]
+    }],
+    faltas: Number // Total de faltas na matéria
 })
 
 const AlunoSchema = new mongoose.Schema({
     nome: { type: String, required: true },
     turma: { type: mongoose.Schema.Types.ObjectId, ref: 'Turma' },
     turno: { type: String, enum: ['Manhã', 'Tarde', 'Noite'], required: true },
-    notas: [NotaSchema],
-    faltas: Number
+    notas: [NotaSchema]
 })
 
 module.exports = mongoose.model('Aluno', AlunoSchema)

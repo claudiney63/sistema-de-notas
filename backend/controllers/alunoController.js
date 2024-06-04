@@ -23,15 +23,15 @@ exports.createAluno = async (req, res) => {
         bimestres: nota.bimestres.map(bimestre => ({
             notas: bimestre.notas,
             media: calcularMedia(bimestre)
-        }))
+        })),
+        faltas: nota.faltas
     }));
 
     const aluno = new Aluno({
         nome: req.body.nome,
         turma: req.body.turma,
         turno: req.body.turno,
-        notas: notas,
-        faltas: req.body.faltas || 0
+        notas: notas
     });
 
     try {
@@ -65,11 +65,9 @@ exports.updateAluno = async (req, res) => {
                 bimestres: nota.bimestres.map(bimestre => ({
                     notas: bimestre.notas,
                     media: calcularMedia(bimestre)
-                }))
+                })),
+                faltas: nota.faltas
             }));
-        }
-        if (req.body.faltas != null) {
-            aluno.faltas = req.body.faltas;
         }
 
         const updatedAluno = await aluno.save();
