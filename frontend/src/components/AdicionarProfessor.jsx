@@ -16,7 +16,6 @@ export default function AdicionarProfessor() {
 
   return (
     <>
-      <NavbarComponent />
       <div className="container mt-5">
         <h2 className="mb-4">Adicionar Novo Professor</h2>
         <form onSubmit={handleSubmit}>

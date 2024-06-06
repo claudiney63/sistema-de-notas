@@ -5,25 +5,26 @@ import NavbarComponent from "./NavBar";
 export default function AdicionarMateria() {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [professor, setProfessor] = useState(professores);
+  const [selectedProfessor, setSelectedProfessor] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const professorSelecionado = professores.find(
+      (professor) => professor.name === selectedProfessor
+    );
+
     const novaMateria = {
       nome,
       descricao,
-      professor: professor.find(
-        (professor) => professor.name === event.target.professor.value
-      ),
+      professor: professorSelecionado
     };
 
-    console.log("Nova matéria:", novaMateria);
-  }
+    console.log('Nova matéria:', novaMateria);
+  };
 
   return (
     <>
-      <NavbarComponent />
       <div className="container mt-5">
         <h2 className="mb-4">Adicionar Nova Matéria</h2>
         <form onSubmit={handleSubmit}>
@@ -53,8 +54,8 @@ export default function AdicionarMateria() {
               Professor da Matéria
             </label>
             <select id="professor" className="form-select" required>
-              {professor.map((professor) => (
-                <option key={professor.name} value={professor.name}>
+              {professores.map((professor) => (
+                <option key={professor._id} value={professor.name}>
                   {professor.name}
                 </option>
               ))}

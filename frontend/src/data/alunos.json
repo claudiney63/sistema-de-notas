@@ -2,55 +2,107 @@
   {
     "_id": "60d21b467db67c0038a4e0f1",
     "nome": "João Silva",
-    "turma": "60d21b467db67c0038a4e0f2",
+    "turma": "5f8f1b3b9b3b3b001f3b3b3b",
     "turno": "manhã",
     "notas": [
       {
         "_id": "60d21b467db67c0038a4e0f4",
-        "materia": "60d21b467db67c0038a4e0f1",
+        "materia": "60c72b2f9b1d4b1234c5d345",
         "bimestres": [
-          { "notas": [8.0, 7.5], "media": 7.75 },
-          { "notas": [8.0, 7.5], "media": 7.75 },
-          { "notas": [8.0, 7.5], "media": 7.75 },
-          { "notas": [8.0, 7.5], "media": 7.75 }
-        ]
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] }
+        ],
+        "faltas": 8
       }
     ]
   },
-    {
-        "_id": "60d21b467db67c0038a4e0f2",
-        "nome": "Maria Silva",
-        "turma": "60d21b467db67c0038a4e0f2",
-        "turno": "noite",
-        "notas": [
-        {
-            "_id": "60d21b467db67c0038a4e0f5",
-            "materia": "60d21b467db67c0038a4e0f1",
-            "bimestres": [
-            { "notas": [8.0, 7.5], "media": 7.75 },
-            { "notas": [8.0, 7.5], "media": 7.75 },
-            { "notas": [8.0, 7.5], "media": 7.75 },
-            { "notas": [8.0, 7.5], "media": 7.75 }
-            ]
-        }
-        ]
-    },
-    {
-        "_id": "60d21b467db67c0038a4e0f3",
-        "nome": "José Silva",
-        "turma": "60d21b467db67c0038a4e0i6",
-        "turno": "tarde",
-        "notas": [
-        {
-            "_id": "60d21b467db67c0038a4e0f6",
-            "materia": "60d21b467db67c0038a4e0f1",
-            "bimestres": [
-            { "notas": [8.0, 7.5], "media": 7.75 },
-            { "notas": [8.0, 7.5], "media": 7.75 },
-            { "notas": [8.0, 7.5], "media": 7.75 },
-            { "notas": [8.0, 7.5], "media": 7.75 }
-            ]
-        }
-        ]
-    }
+  {
+    "_id": "60d21b467db67c0038a4e0f2",
+    "nome": "Maria Silva",
+    "turma": "5f8f1b3b9b3b3b001f3b3b3c",
+    "turno": "noite",
+    "notas": [
+      {
+        "_id": "60d21b467db67c0038a4e0f5",
+        "materia": "60c72b2f9b1d4b1234c5d346",
+        "bimestres": [
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] }
+        ],
+        "faltas": 8
+      },
+      {
+        "_id": "60d21b467db67c0038a4e0f6",
+        "materia": "60c72b2f9b1d4b1234c5d347",
+        "bimestres": [
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] }
+        ],
+        "faltas": 9
+      }
+    ]
+  },
+  {
+    "_id": "60d21b467db67c0038a4e0f3",
+    "nome": "José Silva",
+    "turma": "5f8f1b3b9b3b3b001f3b3b3d",
+    "turno": "tarde",
+    "notas": [
+      {
+        "_id": "60d21b467db67c0038a4e0f6",
+        "materia": "60c72b2f9b1d4b1234c5d347",
+        "bimestres": [
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] }
+        ],
+        "faltas": 0
+      }
+    ]
+  },
+  {
+    "_id": "60d21b467db67c0038a4e0f4",
+    "nome": "Ana Silva",
+    "turma": "5f8f1b3b9b3b3b001f3b3b3e",
+    "turno": "manhã",
+    "notas": [
+      {
+        "_id": "60d21b467db67c0038a4e0f7",
+        "materia": "60c72b2f9b1d4b1234c5d347",
+        "bimestres": [
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] }
+        ],
+        "faltas": 0
+      }
+    ]
+  },
+  {
+    "_id": "60d21b467db67c0038a4e0f9",
+    "nome": "Ana Silva",
+    "turma": "60d21b467db67c0038a4e0i6",
+    "turno": "manhã",
+    "notas": [
+      {
+        "_id": "60d21b467db67c0038a4e0f7",
+        "materia": "60c72b2f9b1d4b1234c5d347",
+        "bimestres": [
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] },
+          { "notas": [8.0, 7.5] }
+        ],
+        "faltas": 0
+      }
+    ]
+  }
 ]

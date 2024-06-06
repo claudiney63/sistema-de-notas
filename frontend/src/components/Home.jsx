@@ -21,22 +21,19 @@ function ContainerCard(props) {
 export default function Home() {
   return (
     <div>
-      {/* Navbar */}
-      <NavbarComponent />
-
       {/* Conteúdo da Home */}
       <div className="container mt-5">
         <div className="row">
           <ContainerCard
             titulo="Turmas"
             descricao="Acesso a lista de turmas."
-            linkRoute="/rota1"
+            linkRoute="/alunos"
             linkText="Acessar Turmas"
           />
           <ContainerCard
             titulo="Materias"
             descricao="Acesso a lista de materias."
-            linkRoute="/rota2"
+            linkRoute="/materias"
             linkText="Acessar Materias"
           />
         </div>

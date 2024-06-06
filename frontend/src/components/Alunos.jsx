@@ -36,7 +36,6 @@ const Alunos = () => {
 
   return (
     <>
-      <NavbarComponent />
       <div className="container mt-5">
         <h2 className="mb-4">Lista de Alunos</h2>
 
