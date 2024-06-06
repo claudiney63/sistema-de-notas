@@ -7,10 +7,10 @@ app.use(express.json())
 //TODO: Conexão com o banco de dados
 
 //Rotas
-const alunoRoutes = require('./routes/alunoRoutes')
-const materiaRoutes = require('./routes/materiaRoutes')
-const professorRoutes = require('./routes/professorRoutes')
-const turmaRoutes = require('./routes/turmaRoutes')
+const alunoRoutes = require('../routes/alunoRoutes')
+const materiaRoutes = require('../routes/materiaRoutes')
+const professorRoutes = require('../routes/professorRoutes')
+const turmaRoutes = require('../routes/turmaRoutes')
 
 app.use('/alunos', alunoRoutes) 
 app.use('/materias', materiaRoutes)

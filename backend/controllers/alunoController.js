@@ -10,21 +10,20 @@ exports.getAllAlunos = async (req, res) => {
     }
 };
 
-// Criar novo aluno
+// Criar novo aluno sem fornecer notas
 exports.createAluno = async (req, res) => {
-    const notas = req.body.notas.map(nota => ({
-        materia: nota.materia,
-        bimestres: nota.bimestres.map(bimestre => ({
-            notas: bimestre.notas
-        })),
-        faltas: nota.faltas
-    }));
+    const { nome, turma, turno } = req.body;
+
+    // Verifica se os campos obrigatórios foram fornecidos
+    if (!nome || !turma || !turno) {
+        return res.status(400).json({ message: 'Nome, turma e turno são campos obrigatórios.' });
+    }
 
     const aluno = new Aluno({
-        nome: req.body.nome,
-        turma: req.body.turma,
-        turno: req.body.turno,
-        notas: notas
+        nome,
+        turma,
+        turno,
+        notas: [] // Inicialmente, não há notas fornecidas para o aluno
     });
 
     try {
@@ -32,6 +31,56 @@ exports.createAluno = async (req, res) => {
         res.status(201).json(newAluno);
     } catch (err) {
         res.status(400).json({ message: err.message });
+    }
+};
+
+// Criar novo aluno
+// exports.createAluno = async (req, res) => {
+//     const notas = req.body.notas.map(nota => ({
+//         materia: nota.materia,
+//         bimestres: nota.bimestres.map(bimestre => ({
+//             notas: bimestre.notas
+//         })),
+//         faltas: nota.faltas
+//     }));
+
+//     const aluno = new Aluno({
+//         nome: req.body.nome,
+//         turma: req.body.turma,
+//         turno: req.body.turno,
+//         notas: notas
+//     });
+
+//     try {
+//         const newAluno = await aluno.save();
+//         res.status(201).json(newAluno);
+//     } catch (err) {
+//         res.status(400).json({ message: err.message });
+//     }
+// };
+
+// Associar matéria e fornecer notas para um aluno
+exports.associateMateriaAndProvideNotas = async (req, res) => {
+    const { alunoId, materiaId, notasBimestres } = req.body;
+
+    try {
+        const aluno = await Aluno.findById(alunoId);
+        if (!aluno) {
+            return res.status(404).json({ message: 'Aluno não encontrado' });
+        }
+
+        // Adicionar a matéria ao array de notas do aluno
+        aluno.notas.push({
+            materia: materiaId,
+            bimestres: notasBimestres,
+            faltas: 0 // Defina o número de faltas conforme necessário
+        });
+
+        // Salvar as alterações no banco de dados
+        const alunoAtualizado = await aluno.save();
+        res.status(200).json(alunoAtualizado);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
 
