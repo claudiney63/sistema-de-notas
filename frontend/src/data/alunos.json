@@ -85,24 +85,5 @@
         "faltas": 0
       }
     ]
-  },
-  {
-    "_id": "60d21b467db67c0038a4e0f9",
-    "nome": "Ana Silva",
-    "turma": "60d21b467db67c0038a4e0i6",
-    "turno": "manhã",
-    "notas": [
-      {
-        "_id": "60d21b467db67c0038a4e0f7",
-        "materia": "60c72b2f9b1d4b1234c5d347",
-        "bimestres": [
-          { "notas": [8.0, 7.5] },
-          { "notas": [8.0, 7.5] },
-          { "notas": [8.0, 7.5] },
-          { "notas": [8.0, 7.5] }
-        ],
-        "faltas": 0
-      }
-    ]
   }
 ]

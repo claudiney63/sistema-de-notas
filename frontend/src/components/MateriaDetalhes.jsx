@@ -109,17 +109,17 @@ export default function MateriaDetalhes() {
             <th>Turma</th>
             <th>AV1</th>
             <th>AV2</th>
+            <th>MB1</th>
             <th>AV3</th>
             <th>AV4</th>
-            <th>RB1</th>
-            <th>RB2</th>
+            <th>MB2</th>
+            <th>MS1</th>
             <th>AV5</th>
             <th>AV6</th>
+            <th>MB3</th>
             <th>AV7</th>
             <th>AV8</th>
-            <th>RB3</th>
-            <th>RB4</th>
-            <th>MS1</th>
+            <th>MB4</th>
             <th>MS2</th>
             <th>MF</th>
             <th>F</th>
@@ -141,7 +141,7 @@ export default function MateriaDetalhes() {
               <tr key={aluno._id}>
                 <td>{aluno.nome}</td>
                 <td>{alunoTurma(aluno._id)}</td>
-                {bimestres.slice(0, 2).map((bimestre, bimestreIndex) => (
+                {bimestres.slice(0, 1).map((bimestre, bimestreIndex) => (
                   <React.Fragment key={`bimestre1-${bimestreIndex}`}>
                     {bimestre.notas.map((nota, notaIndex) => (
                       <td key={`nota1-${bimestreIndex}-${notaIndex}`}>
@@ -167,8 +167,7 @@ export default function MateriaDetalhes() {
                   </React.Fragment>
                 ))}
                 <td style={getNotaStyle(mediasBimestrais[0])}>{mediasBimestrais[0].toFixed(1)}</td>
-                <td style={getNotaStyle(mediasBimestrais[1])}>{mediasBimestrais[1].toFixed(1)}</td>
-                {bimestres.slice(2, 4).map((bimestre, bimestreIndex) => (
+                {bimestres.slice(1, 2).map((bimestre, bimestreIndex) => (
                   <React.Fragment key={`bimestre2-${bimestreIndex}`}>
                     {bimestre.notas.map((nota, notaIndex) => (
                       <td key={`nota2-${bimestreIndex}-${notaIndex}`}>
@@ -193,9 +192,60 @@ export default function MateriaDetalhes() {
                     ))}
                   </React.Fragment>
                 ))}
-                <td style={getNotaStyle(mediasBimestrais[2])}>{mediasBimestrais[2].toFixed(1)}</td>
-                <td style={getNotaStyle(mediasBimestrais[3])}>{mediasBimestrais[3].toFixed(1)}</td>
+                <td style={getNotaStyle(mediasBimestrais[1])}>{mediasBimestrais[1].toFixed(1)}</td>
                 <td style={getNotaStyle(mediaSemestral1)}>{mediaSemestral1.toFixed(1)}</td>
+                {bimestres.slice(2, 3).map((bimestre, bimestreIndex) => (
+                  <React.Fragment key={`bimestre3-${bimestreIndex}`}>
+                    {bimestre.notas.map((nota, notaIndex) => (
+                      <td key={`nota3-${bimestreIndex}-${notaIndex}`}>
+                        {isEditing ? (
+                          <input
+                            type="number"
+                            value={nota}
+                            onChange={(e) =>
+                              handleNotaChange(
+                                aluno._id,
+                                bimestreIndex + 4,
+                                notaIndex,
+                                e.target.value
+                              )
+                            }
+                            style={{ width: "50px" }}
+                          />
+                        ) : (
+                          nota
+                        )}
+                      </td>
+                    ))}
+                  </React.Fragment>
+                ))}
+                <td style={getNotaStyle(mediasBimestrais[2])}>{mediasBimestrais[2].toFixed(1)}</td>
+                {bimestres.slice(3, 4).map((bimestre, bimestreIndex) => (
+                  <React.Fragment key={`bimestre4-${bimestreIndex}`}>
+                    {bimestre.notas.map((nota, notaIndex) => (
+                      <td key={`nota4-${bimestreIndex}-${notaIndex}`}>
+                        {isEditing ? (
+                          <input
+                            type="number"
+                            value={nota}
+                            onChange={(e) =>
+                              handleNotaChange(
+                                aluno._id,
+                                bimestreIndex + 6,
+                                notaIndex,
+                                e.target.value
+                              )
+                            }
+                            style={{ width: "50px" }}
+                          />
+                        ) : (
+                          nota
+                        )}
+                      </td>
+                    ))}
+                  </React.Fragment>
+                ))}
+                <td style={getNotaStyle(mediasBimestrais[3])}>{mediasBimestrais[3].toFixed(1)}</td>
                 <td style={getNotaStyle(mediaSemestral2)}>{mediaSemestral2.toFixed(1)}</td>
                 <td style={getNotaStyle(mediaFinal)}>{mediaFinal.toFixed(1)}</td>
                 <td>{notasMateria.faltas}</td>

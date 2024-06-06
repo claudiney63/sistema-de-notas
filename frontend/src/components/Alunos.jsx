@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import alunos from "../data/alunos.json";
-import NavbarComponent from "./NavBar";
+import turmasData from "../data/turmas.json";
 
 const Alunos = () => {
   const [students, setStudents] = useState(alunos);
-
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [turmas, setTurmas] = useState([]);
   const [selectedTurma, setSelectedTurma] = useState("");
+  const navigate = useNavigate();
+
+  const alunoTurma = (alunoId) => {
+    const aluno = alunos.find((aluno) => aluno._id === alunoId);
+    const turma = turmasData.find((turma) => turma._id === aluno.turma);
+    return turma ? turma.nome : "Turma não encontrada";
+  };
+
+  const nomeTurma = (turmaId) => {
+    const turma = turmasData.find((turma) => turma._id === turmaId);
+    return turma ? turma.nome : "Turma não encontrada";
+  
+  }
 
   useEffect(() => {
     const studentsData = [...students];
     setStudents(studentsData);
     setFilteredStudents(studentsData);
 
-    // Extraindo as turmas únicas
     const uniqueTurmas = [
       ...new Set(studentsData.map((student) => student.turma)),
     ];
@@ -32,6 +43,10 @@ const Alunos = () => {
         students.filter((student) => student.turma === turma)
       );
     }
+  };
+
+  const handleRowClick = (studentId) => {
+    navigate(`/aluno/${studentId}`);
   };
 
   return (
@@ -52,7 +67,7 @@ const Alunos = () => {
             <option value="">Todas as Turmas</option>
             {turmas.map((turma) => (
               <option key={turma} value={turma}>
-                {turma}
+                {nomeTurma(turma)}
               </option>
             ))}
           </select>
@@ -68,9 +83,13 @@ const Alunos = () => {
           </thead>
           <tbody>
             {filteredStudents.map((student) => (
-              <tr key={student.nome}>
+              <tr
+                key={student._id}
+                onClick={() => handleRowClick(student._id)}
+                style={{ cursor: "pointer" }}
+              >
                 <td>{student.nome}</td>
-                <td>{student.turma}</td>
+                <td>{alunoTurma(student._id)}</td>
                 <td>{student.turno}</td>
               </tr>
             ))}
