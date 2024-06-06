@@ -4,7 +4,6 @@ const NotaSchema = new mongoose.Schema({
     materia: { type: mongoose.Schema.Types.ObjectId, ref: 'Materia' },
     bimestres: [{
         notas: [Number],  // Duas notas por bimestre
-        media: Number,     // Média do bimestre
         
     }],
     faltas: Number // Total de faltas na matéria

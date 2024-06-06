@@ -1,11 +1,5 @@
 const Aluno = require('../models/Aluno')
 
-// Função para calcular a média de um bimestre
-function calcularMediaBimestre(bimestre) {
-    const total = bimestre.notas.reduce((acc, nota) => acc + nota, 0);
-    return total / bimestre.notas.length;
-}
-
 // Listar todos os alunos
 exports.getAllAlunos = async (req, res) => {
     try {
@@ -21,8 +15,7 @@ exports.createAluno = async (req, res) => {
     const notas = req.body.notas.map(nota => ({
         materia: nota.materia,
         bimestres: nota.bimestres.map(bimestre => ({
-            notas: bimestre.notas,
-            media: calcularMedia(bimestre)
+            notas: bimestre.notas
         })),
         faltas: nota.faltas
     }));
@@ -63,8 +56,7 @@ exports.updateAluno = async (req, res) => {
             aluno.notas = req.body.notas.map(nota => ({
                 materia: nota.materia,
                 bimestres: nota.bimestres.map(bimestre => ({
-                    notas: bimestre.notas,
-                    media: calcularMedia(bimestre)
+                    notas: bimestre.notas
                 })),
                 faltas: nota.faltas
             }));
