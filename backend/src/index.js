@@ -1,10 +1,30 @@
 const express = require('express')
-const moogoos = require('mongoose')
+const mongoose = require('mongoose')
 const app = express()
 
-app.use(express.json())
+// Conexão com o banco de dados
+const pass = 'na02ru08to02'
+const uri = `mongodb+srv://Nero:${pass}@colegio-cte.mcuco6p.mongodb.net/?retryWrites=true&w=majority&appName=colegio-cte`
 
 //TODO: Conexão com o banco de dados
+const connectDB = async () => {
+  try {
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log('MongoDB conectado!');
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1); // Saída do processo com falha
+  }
+};
+
+// Conectar ao banco de dados
+connectDB();
+
+// Middlewares
+app.use(express.json())
 
 //Rotas
 const alunoRoutes = require('../routes/alunoRoutes')
