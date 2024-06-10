@@ -3,6 +3,7 @@ const router = express.Router();
 const alunoController = require('../controllers/alunoController')
 
 router.get('/', alunoController.getAllAlunos)
+router.get('/:id', alunoController.getAluno)
 router.post('/', alunoController.createAluno)
 router.post('/addNota', alunoController.associateMateriaAndProvideNotas)
 router.put('/:id', alunoController.updateAluno)
