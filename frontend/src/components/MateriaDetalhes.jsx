@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import alunosData from "../data/alunos.json"; // Supondo que você tenha uma lista de alunos com suas notas
-import turmasData from "../data/turmas.json"; // Supondo que você tenha uma lista de turmas
-import materiasData from "../data/materias.json"; // Supondo que você tenha uma lista de matérias
+import axios from "axios";
 
 export default function MateriaDetalhes() {
   const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
-  const [alunos, setAlunos] = useState(alunosData);
+  const [alunos, setAlunos] = useState([]);
+  const [turmas, setTurmas] = useState([]);
+  const [materias, setMaterias] = useState([]);
   const [turmaSelecionada, setTurmaSelecionada] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [alunosResponse, turmasResponse, materiasResponse] = await Promise.all([
+          axios.get("https://sistema-de-notas-one.vercel.app/alunos"),
+          axios.get("https://sistema-de-notas-one.vercel.app/turmas"),
+          axios.get("https://sistema-de-notas-one.vercel.app/materias"),
+        ]);
+        setAlunos(alunosResponse.data);
+        setTurmas(turmasResponse.data);
+        setMaterias(materiasResponse.data);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const alunosDaMateria = alunos.filter((aluno) =>
     aluno.notas.some((nota) => nota.materia === id)
@@ -16,14 +35,14 @@ export default function MateriaDetalhes() {
 
   const alunoTurma = (alunoId) => {
     const aluno = alunos.find((aluno) => aluno._id === alunoId);
-    const turma = turmasData.find((turma) => turma._id === aluno.turma);
+    const turma = turmas.find((turma) => turma._id === aluno.turma);
     return turma ? turma.nome : "Turma não encontrada";
   };
 
   const nomeMateria = (materiaId) => {
-    const materia = materiasData.find((materia) => materia._id === materiaId);
+    const materia = materias.find((materia) => materia._id === materiaId);
     return materia ? materia.nome : "Materia não encontrada";
-  }
+  };
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
@@ -95,13 +114,20 @@ export default function MateriaDetalhes() {
           onChange={handleTurmaChange}
         >
           <option value="">Todas as Turmas</option>
-          {turmasData.map((turma) => (
+          {turmas.map((turma) => (
             <option key={turma._id} value={turma._id}>
               {turma.nome}
             </option>
           ))}
         </select>
       </div>
+      <>
+        {isEditing && (
+          <p className="text-danger">
+            Cuidado! As alterações feitas nas notas são salvas automaticamente.
+          </p>
+        )}
+      </>
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -127,8 +153,11 @@ export default function MateriaDetalhes() {
         </thead>
         <tbody>
           {turmasFiltradas.map((aluno) => {
-            const notasMateria = aluno.notas.find((nota) => nota.materia === id);
+            console.log(aluno);
+            const notasMateria = aluno.notas.find((nota) => nota.materia._id === id);
+            console.log(notasMateria);
             const bimestres = notasMateria.bimestres;
+            console.log(bimestres);
             const mediasBimestrais = bimestres.map(
               (bimestre) =>
                 bimestre.notas.reduce((a, b) => a + b, 0) / bimestre.notas.length

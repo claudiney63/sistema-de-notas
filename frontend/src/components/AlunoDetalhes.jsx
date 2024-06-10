@@ -1,25 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import alunos from "../data/alunos.json";
-import materiasData from "../data/materias.json";
-import turmasData from "../data/turmas.json";
+import axios from "axios";
 
 const AlunoDetalhes = () => {
   const { id } = useParams();
-  const aluno = alunos.find((aluno) => aluno._id === id);
+  const [aluno, setAluno] = useState(null);
+  const [materias, setMaterias] = useState([]);
+  const [turmas, setTurmas] = useState([]);
 
-  console.log(aluno);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [alunoResponse, materiasResponse, turmasResponse] = await Promise.all([
+          axios.get(`https://sistema-de-notas-one.vercel.app/alunos/${id}`),
+          axios.get("https://sistema-de-notas-one.vercel.app/materias"),
+          axios.get("https://sistema-de-notas-one.vercel.app/turmas"),
+        ]);
+
+        setAluno(alunoResponse.data);
+        setMaterias(materiasResponse.data);
+        setTurmas(turmasResponse.data);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   const nomeMateria = (materiaId) => {
-    const materia = materiasData.find((materia) => materia._id === materiaId);
+    const materia = materias.find((materia) => materia._id === materiaId);
     return materia ? materia.nome : "Matéria não encontrada";
   };
 
   const nomeTurma = (turmaId) => {
-    const turma = turmasData.find((turma) => turma._id === turmaId);
+    const turma = turmas.find((turma) => turma._id === turmaId);
     return turma ? turma.nome : "Turma não encontrada";
-  
-  }
+  };
 
   if (!aluno) {
     return <div>Aluno não encontrado</div>;
@@ -28,14 +45,14 @@ const AlunoDetalhes = () => {
   return (
     <div className="container mt-5">
       <h2 className="mb-4">Detalhes do Aluno: {aluno.nome}</h2>
-      <p><strong>Turma:</strong> {nomeTurma(aluno.turma)}</p>
+      <p><strong>Turma:</strong> {aluno.turma.nome}</p>
       <p><strong>Turno:</strong> {aluno.turno}</p>
 
       <h3>Notas</h3>
       <table className="table table-bordered">
         <thead>
           <tr>
-          <th>Materia</th>
+            <th>Materia</th>
             <th>AV1</th>
             <th>AV2</th>
             <th>MB1</th>
@@ -101,7 +118,6 @@ const AlunoDetalhes = () => {
                     ))}
                   </React.Fragment>
                 ))}
-                
                 <td style={getNotaStyle(mediasBimestrais[2])}>{mediasBimestrais[2].toFixed(1)}</td>
                 {bimestres.slice(3, 4).map((bimestre, bimestreIndex) => (
                   <React.Fragment key={`bimestre2-${bimestreIndex}`}>

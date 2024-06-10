@@ -9,29 +9,20 @@ const Alunos = () => {
   const [selectedTurma, setSelectedTurma] = useState("");
   const navigate = useNavigate();
 
-  const alunoTurma = (alunoId) => {
-    const aluno = students.find((aluno) => aluno._id === alunoId);
-    const turma = turmas.find((turma) => turma._id === aluno.turma);
-    return turma ? turma.nome : "Turma não encontrada";
-  };
-
-  const nomeTurma = (turmaId) => {
-    const turma = turmas.find((turma) => turma._id === turmaId);
-    return turma ? turma.nome : "Turma não encontrada";
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://sistema-de-notas-one.vercel.app/alunos");
-        const data = response.data;
-        setStudents(data);
-        setFilteredStudents(data);
+        const [alunosResponse, turmasResponse] = await Promise.all([
+          axios.get("https://sistema-de-notas-one.vercel.app/alunos"),
+          axios.get("https://sistema-de-notas-one.vercel.app/turmas"),
+        ]);
 
-        const uniqueTurmas = [
-          ...new Set(data.map((student) => student.turma)),
-        ];
-        setTurmas(uniqueTurmas);
+        const alunosData = alunosResponse.data;
+        const turmasData = turmasResponse.data;
+
+        setStudents(alunosData);
+        setFilteredStudents(alunosData);
+        setTurmas(turmasData);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       }
@@ -42,12 +33,13 @@ const Alunos = () => {
 
   const handleTurmaChange = (event) => {
     const turma = event.target.value;
+    console.log("turma", turma);
     setSelectedTurma(turma);
     if (turma === "") {
       setFilteredStudents(students);
     } else {
       setFilteredStudents(
-        students.filter((student) => student.turma === turma)
+        students.filter((student) => student.turma._id === turma)
       );
     }
   };
@@ -72,8 +64,8 @@ const Alunos = () => {
         >
           <option value="">Todas as Turmas</option>
           {turmas.map((turma) => (
-            <option key={turma} value={turma}>
-              {nomeTurma(turma)}
+            <option key={turma._id} value={turma._id}>
+              {turma.nome}
             </option>
           ))}
         </select>
@@ -95,7 +87,7 @@ const Alunos = () => {
               style={{ cursor: "pointer" }}
             >
               <td>{student.nome}</td>
-              <td>{alunoTurma(student._id)}</td>
+              <td>{student.turma.nome}</td>
               <td>{student.turno}</td>
             </tr>
           ))}

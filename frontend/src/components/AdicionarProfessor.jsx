@@ -1,16 +1,28 @@
 import React, { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function AdicionarProfessor() {
   const [nome, setNome] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const novoProfessor = {
-      nome,
-    };
+    try {
+      const response = await axios.post("https://sistema-de-notas-one.vercel.app/professores", {
+        nome: nome
+      });
 
-    console.log("Novo professor:", novoProfessor);
+      Swal.fire({
+        icon: "success",
+        title: "Professor Adicionado!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      console.log("Novo professor adicionado:", response.data);
+    } catch (error) {
+      console.error("Erro ao adicionar novo professor:", error);
+    }
   };
 
   return (
