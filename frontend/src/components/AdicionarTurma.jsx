@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AdicionarTurma = () => {
   const [nome, setNome] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const novaTurma = {
-      nome,
-    };
+    try {
+      const response = await axios.post('https://sistema-de-notas-one.vercel.app/turmas', {
+        nome: nome
+      });
 
-    console.log('Nova turma:', novaTurma);
+      Swal.fire({
+        icon: 'success',
+        title: 'Turma Adicionada!',
+        showConfirmButton: true
+      })
+      console.log('Nova turma adicionada:', response.data);
+    } catch (error) {
+      console.error('Erro ao adicionar nova turma:', error);
+    }
   };
 
   return (
