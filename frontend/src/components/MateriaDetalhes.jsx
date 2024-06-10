@@ -29,13 +29,15 @@ export default function MateriaDetalhes() {
     fetchData();
   }, []);
 
+  console.log("alunos", alunos);
+
   const alunosDaMateria = alunos.filter((aluno) =>
-    aluno.notas.some((nota) => nota.materia === id)
+    aluno.notas.some((nota) => nota.materia._id === id)
   );
 
   const alunoTurma = (alunoId) => {
     const aluno = alunos.find((aluno) => aluno._id === alunoId);
-    const turma = turmas.find((turma) => turma._id === aluno.turma);
+    const turma = turmas.find((turma) => turma._id === aluno.turma._id);
     return turma ? turma.nome : "Turma não encontrada";
   };
 
@@ -152,6 +154,7 @@ export default function MateriaDetalhes() {
           </tr>
         </thead>
         <tbody>
+          {console.log(turmasFiltradas)}
           {turmasFiltradas.map((aluno) => {
             console.log(aluno);
             const notasMateria = aluno.notas.find((nota) => nota.materia._id === id);
