@@ -13,6 +13,22 @@ exports.getAllAlunos = async (req, res) => {
   }
 };
 
+// Listar um aluno
+exports.getAluno = async (req, res) => {
+  try {
+    const aluno = await Aluno.findById(req.params.id)
+      .populate("turma")
+      .populate("notas.materia");
+    if (aluno == null) {
+      return res.status(404).json({ message: "Aluno não encontrado" });
+    }
+    res.status(200).json(aluno);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+
+}
+
 // Criar novo aluno sem fornecer notas
 exports.createAluno = async (req, res) => {
   const { nome, turma, turno } = req.body;
