@@ -99,7 +99,7 @@ exports.associateMateriaAndProvideNotas = async (req, res) => {
     res.status(200).json(alunoAtualizado);
   } catch (err) {
     console.error("Error:", err.message);
-    res.status(400).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
