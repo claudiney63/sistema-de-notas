@@ -1,6 +1,5 @@
 import professores from "../data/professores";
 import { useState } from "react";
-import NavbarComponent from "./NavBar";
 
 export default function AdicionarMateria() {
   const [nome, setNome] = useState("");

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import NavbarComponent from './NavBar';
 import turmas from '../data/turmas';
 
 export default function AdicionarAluno() {

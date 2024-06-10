@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import NavbarComponent from "./NavBar";
 
 export default function AdicionarProfessor() {
   const [nome, setNome] = useState("");
