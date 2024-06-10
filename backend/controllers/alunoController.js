@@ -6,7 +6,8 @@ exports.getAllAlunos = async (req, res) => {
   try {
     const alunos = await Aluno.find()
       .populate("turma")
-      .populate("notas.materia");
+      .populate("notas.materia")
+      .populate("professor");
     res.status(200).json(alunos);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -18,7 +19,8 @@ exports.getAluno = async (req, res) => {
   try {
     const aluno = await Aluno.findById(req.params.id)
       .populate("turma")
-      .populate("notas.materia");
+      .populate("notas.materia")
+      .populate("professor");
     if (aluno == null) {
       return res.status(404).json({ message: "Aluno não encontrado" });
     }
