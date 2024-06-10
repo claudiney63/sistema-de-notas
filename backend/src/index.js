@@ -1,10 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const dotenv = require('dotenv')
 const app = express()
 
+dotenv.config()
+
 // Conexão com o banco de dados
-const pass = 'na02ru08to02'
-const uri = `mongodb+srv://Nero:${pass}@colegio-cte.mcuco6p.mongodb.net/?retryWrites=true&w=majority&appName=colegio-cte`
+const uri = process.env.MONGODB_CONNECT_URI
 
 //TODO: Conexão com o banco de dados
 const connectDB = async () => {
@@ -37,6 +39,8 @@ app.use('/materias', materiaRoutes)
 app.use('/professores', professorRoutes)
 app.use('/turmas', turmaRoutes)
 
-app.listen(3000, () => {
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, () => {
   console.log('Server is running on port 3000')
 })
