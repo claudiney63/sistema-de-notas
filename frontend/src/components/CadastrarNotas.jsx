@@ -2,6 +2,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+function InputNotas({ label, value, onChange }) {
+  return (
+    <input
+      type="number"
+      className="form-control"
+      placeholder={label}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      required
+    />
+  );
+}
+
 export default function CadastrarNotas() {
   const [alunos, setAlunos] = useState([]);
   const [materias, setMaterias] = useState([]);
@@ -132,90 +145,34 @@ export default function CadastrarNotas() {
           <label className="form-label">Notas Bimestrais</label>
           <div className="row">
             <div className="col">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Nota(1) 1º Bimestre"
-                value={nota1B1}
-                onChange={(e) => setNota1B1(e.target.value)}
-                required
-              />
+              <InputNotas label={"AV1"} value={nota1B1} onChange={setNota1B1} />
             </div>
             <div className="col">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Nota(2) 1º Bimestre"
-                value={nota2B1}
-                onChange={(e) => setNota2B1(e.target.value)}
-                required
-              />
+              <InputNotas label={"AV2"} value={nota2B1} onChange={setNota2B1} />
             </div>
           </div>
           <div className="row mt-3">
             <div className="col">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Nota(1) 2º Bimestre"
-                value={nota1B2}
-                onChange={(e) => setNota1B2(e.target.value)}
-                required
-              />
+              <InputNotas label={"AV3"} value={nota1B2} onChange={setNota1B2} />
             </div>
             <div className="col">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Nota(2) 2º Bimestre"
-                value={nota2B2}
-                onChange={(e) => setNota2B2(e.target.value)}
-                required
-              />
+              <InputNotas label={"AV4"} value={nota2B2} onChange={setNota2B2} />
             </div>
           </div>
           <div className="row mt-3">
             <div className="col">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Nota(1) 3º Bimestre"
-                value={nota1B3}
-                onChange={(e) => setNota1B3(e.target.value)}
-                required
-              />
+              <InputNotas label={"AV5"} value={nota1B3} onChange={setNota1B3} />
             </div>
             <div className="col">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Nota(2) 3º Bimestre"
-                value={nota2B3}
-                onChange={(e) => setNota2B3(e.target.value)}
-                required
-              />
+              <InputNotas label={"AV6"} value={nota2B3} onChange={setNota2B3} />
             </div>
           </div>
           <div className="row mt-3">
             <div className="col">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Nota(1) 4º Bimestre"
-                value={nota1B4}
-                onChange={(e) => setNota1B4(e.target.value)}
-                required
-              />
+              <InputNotas label={"AV7"} value={nota1B4} onChange={setNota1B4} />
             </div>
             <div className="col">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Nota(2) 4º Bimestre"
-                value={nota2B4}
-                onChange={(e) => setNota2B4(e.target.value)}
-                required
-              />
+              <InputNotas label={"AV8"} value={nota2B4} onChange={setNota2B4} />
             </div>
           </div>
         </div>

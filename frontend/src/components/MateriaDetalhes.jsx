@@ -97,21 +97,19 @@ export default function MateriaDetalhes() {
   };
 
   const turmasFiltradas = turmaSelecionada
-    ? alunosDaMateria.filter((aluno) => aluno.turma === turmaSelecionada)
+    ? alunosDaMateria.filter((aluno) => aluno.turma._id === turmaSelecionada)
     : alunosDaMateria;
-
-    console.log("alunos da materia", alunosDaMateria);
 
   return (
     <div className="container mt-5">
       <h2 className="mb-4">Alunos Matriculados em {nomeMateria(id)}</h2>
       <div className="mb-3 d-flex justify-content-between">
-        <button
+        {/* <button
           className="btn btn-primary"
           onClick={handleEditToggle}
         >
           {isEditing ? "Salvar Notas" : "Editar Notas"}
-        </button>
+        </button> */}
         <select
           className="form-select w-auto"
           value={turmaSelecionada}
