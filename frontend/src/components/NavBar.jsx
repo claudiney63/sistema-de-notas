@@ -2,7 +2,7 @@ function NavbarComponent() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light p-4">
       <a className="navbar-brand fw-bold" href="/">
-        Colegio CTE
+        Colégio CTE
       </a>
       <button
         className="navbar-toggler"
@@ -19,11 +19,11 @@ function NavbarComponent() {
         <ul className="navbar-nav">
           <li className="nav-item active">
             <a className="nav-link" href="/">
-              Home
+              Inicio
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/materias">
+            <a className="nav-link" href="/cadastrar-notas">
               Cadastrar Notas
             </a>
           </li>

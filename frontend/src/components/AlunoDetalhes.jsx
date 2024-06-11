@@ -28,16 +28,6 @@ const AlunoDetalhes = () => {
     fetchData();
   }, [id]);
 
-  const nomeMateria = (materiaId) => {
-    const materia = materias.find((materia) => materia._id === materiaId);
-    return materia ? materia.nome : "Matéria não encontrada";
-  };
-
-  const nomeTurma = (turmaId) => {
-    const turma = turmas.find((turma) => turma._id === turmaId);
-    return turma ? turma.nome : "Turma não encontrada";
-  };
-
   if (!aluno) {
     return <div>Aluno não encontrado</div>;
   }
@@ -68,6 +58,7 @@ const AlunoDetalhes = () => {
             <th>MB4</th>
             <th>MS2</th>
             <th>MF</th>
+            <th>Resultado</th>
           </tr>
         </thead>
         <tbody>
@@ -87,7 +78,7 @@ const AlunoDetalhes = () => {
 
             return (
               <tr key={nota.materia}>
-                <td>{nomeMateria(nota.materia)}</td>
+                <td>{nota.materia.nome}</td>
                 {bimestres.slice(0, 1).map((bimestre, bimestreIndex) => (
                   <React.Fragment key={`bimestre1-${bimestreIndex}`}>
                     {bimestre.notas.map((n, notaIndex) => (
@@ -131,6 +122,7 @@ const AlunoDetalhes = () => {
                 <td style={getNotaStyle(mediasBimestrais[3])}>{mediasBimestrais[3].toFixed(1)}</td>
                 <td style={getNotaStyle(mediaSemestral2)}>{mediaSemestral2.toFixed(1)}</td>
                 <td style={getNotaStyle(mediaFinal)}>{mediaFinal.toFixed(1)}</td>
+                <td style={getNotaStyle(mediaFinal)}>{mediaFinal < 6 ? "Reprovado" : "Aprovado"}</td>
               </tr>
             );
           })}

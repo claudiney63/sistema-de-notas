@@ -10,6 +10,7 @@ import NavbarComponent from './components/NavBar';
 import Materias from './components/Materias';
 import MateriaDetalhes from './components/MateriaDetalhes';
 import AlunoDetalhes from './components/AlunoDetalhes';
+import CadastrarNotas from './components/CadastrarNotas';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/materias" element={<Materias />} />
           <Route path="/materias/:id" element={<MateriaDetalhes />} />
           <Route path="/aluno/:id" element={<AlunoDetalhes />} />
+          <Route path="/cadastrar-notas" element={<CadastrarNotas />} />
         </Routes>
       </div>
     </Router>

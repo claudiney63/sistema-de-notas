@@ -100,6 +100,8 @@ export default function MateriaDetalhes() {
     ? alunosDaMateria.filter((aluno) => aluno.turma === turmaSelecionada)
     : alunosDaMateria;
 
+    console.log("alunos da materia", alunosDaMateria);
+
   return (
     <div className="container mt-5">
       <h2 className="mb-4">Alunos Matriculados em {nomeMateria(id)}</h2>
@@ -150,17 +152,14 @@ export default function MateriaDetalhes() {
             <th>MB4</th>
             <th>MS2</th>
             <th>MF</th>
-            <th>F</th>
+            <th>Resultado</th>
           </tr>
         </thead>
         <tbody>
           {console.log(turmasFiltradas)}
           {turmasFiltradas.map((aluno) => {
-            console.log(aluno);
             const notasMateria = aluno.notas.find((nota) => nota.materia._id === id);
-            console.log(notasMateria);
             const bimestres = notasMateria.bimestres;
-            console.log(bimestres);
             const mediasBimestrais = bimestres.map(
               (bimestre) =>
                 bimestre.notas.reduce((a, b) => a + b, 0) / bimestre.notas.length
@@ -280,7 +279,7 @@ export default function MateriaDetalhes() {
                 <td style={getNotaStyle(mediasBimestrais[3])}>{mediasBimestrais[3].toFixed(1)}</td>
                 <td style={getNotaStyle(mediaSemestral2)}>{mediaSemestral2.toFixed(1)}</td>
                 <td style={getNotaStyle(mediaFinal)}>{mediaFinal.toFixed(1)}</td>
-                <td>{notasMateria.faltas}</td>
+                <td style={getNotaStyle(mediaFinal)}>{mediaFinal >= 6.0 ? "Aprovado" : "Reprovado"}</td>
               </tr>
             );
           })}
