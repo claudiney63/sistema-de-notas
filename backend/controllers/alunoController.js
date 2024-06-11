@@ -81,6 +81,45 @@ exports.createAluno = async (req, res) => {
 // };
 
 // Associar matéria e fornecer notas para um aluno
+// exports.associateMateriaAndProvideNotas = async (req, res) => {
+//   try {
+//     const { alunoId, materiaId, notas, faltas } = req.body;
+
+//     console.log("Received data:", req.body);
+
+//     const aluno = await Aluno.findById(alunoId);
+//     if (!aluno) {
+//       return res.status(404).json({ message: "Aluno não encontrado" });
+//     }
+
+//     const materia = await Materia.findById(materiaId);
+//     if (!materia) {
+//         return res.status(404).json({ message: "Matéria não encontrada" });
+//     }
+
+//     const novaNota = {
+//       materia: materiaId,
+//       bimestres: notas.map((nota) => ({
+//         notas: nota,
+//       })),
+//       faltas: faltas,
+//     };
+
+//     console.log("New note to add:", novaNota);
+
+//     aluno.notas.push(novaNota);
+//     const alunoAtualizado = await aluno.save();
+
+//     console.log("Updated student:", alunoAtualizado);
+
+//     res.status(200).json(alunoAtualizado);
+//   } catch (err) {
+//     console.error("Error:", err.message);
+//     res.status(500).json({ message: err.message });
+//   }
+// };
+
+// Associar matéria e fornecer notas para um aluno
 exports.associateMateriaAndProvideNotas = async (req, res) => {
   try {
     const { alunoId, materiaId, notas, faltas } = req.body;
@@ -92,23 +131,38 @@ exports.associateMateriaAndProvideNotas = async (req, res) => {
       return res.status(404).json({ message: "Aluno não encontrado" });
     }
 
-    const materia = await Materia.findById(materiaId);
-    if (!materia) {
-        return res.status(404).json({ message: "Matéria não encontrada" });
+    let materia = await Materia.findById(materiaId);
+    let novaMateria = false;
+
+    // Verifique se a matéria está cadastrada para o aluno
+    if (!aluno.materias.includes(materiaId)) {
+      // Se a matéria não estiver cadastrada, crie uma nova instância
+      materia = new Materia({
+        _id: materiaId,
+        // Inicialize com as notas fornecidas
+        notas: [{
+          aluno: alunoId,
+          bimestres: notas.map(nota => ({ notas: nota })),
+          faltas: faltas
+        }]
+      });
+      // Adicione a matéria ao aluno
+      aluno.materias.push(materiaId);
+      novaMateria = true;
+    } else {
+      // Se a matéria já estiver cadastrada, atualize as notas existentes
+      const index = aluno.notas.findIndex(nota => nota.materia === materiaId);
+      aluno.notas[index].bimestres = notas.map(nota => ({ notas: nota }));
+      aluno.notas[index].faltas = faltas;
     }
 
-    const novaNota = {
-      materia: materiaId,
-      bimestres: notas.map((nota) => ({
-        notas: nota,
-      })),
-      faltas: faltas,
-    };
-
-    console.log("New note to add:", novaNota);
-
-    aluno.notas.push(novaNota);
+    // Salve as alterações no aluno
     const alunoAtualizado = await aluno.save();
+
+    // Se uma nova matéria foi criada, salve-a também
+    if (novaMateria) {
+      await materia.save();
+    }
 
     console.log("Updated student:", alunoAtualizado);
 
@@ -118,6 +172,7 @@ exports.associateMateriaAndProvideNotas = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // Atualizar aluno
 exports.updateAluno = async (req, res) => {
