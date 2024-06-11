@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AlunoDetalhes = () => {
   const { id } = useParams();
   const [aluno, setAluno] = useState(null);
   const [materias, setMaterias] = useState([]);
   const [turmas, setTurmas] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,17 +31,56 @@ const AlunoDetalhes = () => {
     fetchData();
   }, [id]);
 
+  const handleEditar = () => {
+    navigate(`/editar-aluno/${id}`);
+  };
+
+  const handleApagar = () => {
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Esta ação não pode ser revertida!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sim, apagar!',
+      cancelButtonText: 'Cancelar'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`https://sistema-de-notas-one.vercel.app/alunos/${id}`);
+          Swal.fire(
+            'Apagado!',
+            'O aluno foi apagado com sucesso.',
+            'success'
+          );
+          navigate('/alunos');
+        } catch (error) {
+          console.error("Erro ao apagar aluno:", error);
+          Swal.fire(
+            'Erro!',
+            'Ocorreu um erro ao apagar o aluno.',
+            'error'
+          );
+        }
+      }
+    });
+  };
+
   if (!aluno) {
     return <div>Aluno não encontrado</div>;
   }
 
   return (
     <div className="container mt-5">
-      <h2 className="mb-4">Detalhes do Aluno: {aluno.nome}</h2>
+      <h2 className="mb-4">{aluno.nome}</h2>
       <p><strong>Turma:</strong> {aluno.turma.nome}</p>
       <p><strong>Turno:</strong> {aluno.turno}</p>
 
-      <h3>Notas</h3>
+      <button className="btn btn-primary me-2" onClick={handleEditar}>Editar</button>
+      <button className="btn btn-danger" onClick={handleApagar}>Apagar</button>
+
+      <h3 className="mt-3">Notas</h3>
       <table className="table table-bordered">
         <thead>
           <tr>

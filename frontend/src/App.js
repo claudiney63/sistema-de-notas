@@ -11,6 +11,7 @@ import Materias from './components/Materias';
 import MateriaDetalhes from './components/MateriaDetalhes';
 import AlunoDetalhes from './components/AlunoDetalhes';
 import CadastrarNotas from './components/CadastrarNotas';
+import EditarAluno from './components/EditarAluno';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/materias/:id" element={<MateriaDetalhes />} />
           <Route path="/aluno/:id" element={<AlunoDetalhes />} />
           <Route path="/cadastrar-notas" element={<CadastrarNotas />} />
+          <Route path="/editar-aluno/:id" element={<EditarAluno />} />
         </Routes>
       </div>
     </Router>
