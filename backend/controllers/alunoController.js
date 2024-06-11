@@ -136,15 +136,15 @@ exports.updateAluno = async (req, res) => {
     if (req.body.turno != null) {
       aluno.turno = req.body.turno;
     }
-    if (req.body.notas != null) {
-      aluno.notas = req.body.notas.map((nota) => ({
-        materia: nota.materia,
-        bimestres: nota.bimestres.map((bimestre) => ({
-          notas: bimestre.notas,
-        })),
-        faltas: nota.faltas,
-      }));
-    }
+    // if (req.body.notas != null) {
+    //   aluno.notas = req.body.notas.map((nota) => ({
+    //     materia: nota.materia,
+    //     bimestres: nota.bimestres.map((bimestre) => ({
+    //       notas: bimestre.notas,
+    //     })),
+    //     faltas: nota.faltas,
+    //   }));
+    // }
 
     const updatedAluno = await aluno.save();
     res.status(200).json(updatedAluno);
