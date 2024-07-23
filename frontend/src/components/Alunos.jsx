@@ -63,11 +63,14 @@ const Alunos = () => {
           onChange={handleTurmaChange}
         >
           <option value="">Todas as Turmas</option>
-          {turmas.map((turma) => (
-            <option key={turma._id} value={turma._id}>
-              {turma.nome}
-            </option>
-          ))}
+          {turmas
+            .slice() // Faz uma cópia do array para evitar mutações
+            .sort((a, b) => a.nome.localeCompare(b.nome)) // Ordena as turmas por nome
+            .map((turma) => (
+              <option key={turma._id} value={turma._id}>
+                {turma.nome}
+              </option>
+            ))}
         </select>
       </div>
 
@@ -80,17 +83,20 @@ const Alunos = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredStudents.map((student) => (
-            <tr
-              key={student._id}
-              onClick={() => handleRowClick(student._id)}
-              style={{ cursor: "pointer" }}
-            >
-              <td>{student.nome}</td>
-              <td>{student.turma.nome}</td>
-              <td>{student.turno}</td>
-            </tr>
-          ))}
+          {filteredStudents
+            .slice() // Faz uma cópia do array para evitar mutações
+            .sort((a, b) => a.nome.localeCompare(b.nome)) // Ordena os alunos por nome
+            .map((student) => (
+              <tr
+                key={student._id}
+                onClick={() => handleRowClick(student._id)}
+                style={{ cursor: "pointer" }}
+              >
+                <td>{student.nome}</td>
+                <td>{student.turma.nome}</td>
+                <td>{student.turno}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

@@ -89,7 +89,7 @@ export default function CadastrarNotas() {
           const aluno = response.data;
 
           const nota = aluno.notas.find((n) => n.materia._id === materiaId);
-          console.log(nota)
+          console.log(nota);
           if (nota) {
             setNota1B1(nota.bimestres[0]?.notas[0] || "");
             setNota2B1(nota.bimestres[0]?.notas[1] || "");
@@ -184,11 +184,14 @@ export default function CadastrarNotas() {
             <option value="" disabled>
               Selecione um aluno
             </option>
-            {alunos.map((aluno) => (
-              <option key={aluno._id} value={aluno._id}>
-                {aluno.nome}
-              </option>
-            ))}
+            {alunos
+              .slice() // Faz uma cópia do array para evitar mutações
+              .sort((a, b) => a.nome.localeCompare(b.nome)) // Ordena os alunos por nome
+              .map((aluno) => (
+                <option key={aluno._id} value={aluno._id}>
+                  {aluno.nome}
+                </option>
+              ))}
           </select>
         </div>
         <div className="mb-3">
@@ -205,11 +208,14 @@ export default function CadastrarNotas() {
             <option value="" disabled>
               Selecione uma matéria
             </option>
-            {materias.map((materia) => (
-              <option key={materia._id} value={materia._id}>
-                {materia.nome}
-              </option>
-            ))}
+            {materias
+              .slice() // Faz uma cópia do array para evitar mutações
+              .sort((a, b) => a.nome.localeCompare(b.nome)) // Ordena as matérias por nome
+              .map((materia) => (
+                <option key={materia._id} value={materia._id}>
+                  {materia.nome}
+                </option>
+              ))}
           </select>
         </div>
         <div className="mb-3">
