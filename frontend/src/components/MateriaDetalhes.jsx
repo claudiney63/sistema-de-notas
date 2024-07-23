@@ -150,7 +150,8 @@ export default function MateriaDetalhes() {
             <th>MB4</th>
             <th>MS2</th>
             <th>MF</th>
-            <th>Resultado</th>
+            <th>R</th>
+            <th>F</th>
           </tr>
         </thead>
         <tbody>
@@ -277,7 +278,8 @@ export default function MateriaDetalhes() {
                 <td style={getNotaStyle(mediasBimestrais[3])}>{mediasBimestrais[3].toFixed(1)}</td>
                 <td style={getNotaStyle(mediaSemestral2)}>{mediaSemestral2.toFixed(1)}</td>
                 <td style={getNotaStyle(mediaFinal)}>{mediaFinal.toFixed(1)}</td>
-                <td style={getNotaStyle(mediaFinal)}>{mediaFinal >= 6.0 ? "Aprovado" : "Reprovado"}</td>
+                <td style={getNotaStyle(mediaFinal)}>{mediaFinal >= 6.0 ? "A" : "R"}</td>
+                <td>{notasMateria.faltas}</td>
               </tr>
             );
           })}

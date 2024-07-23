@@ -23,7 +23,7 @@ export default function Materias() {
             <h2 className="mb-4">Materias</h2>
             <div className="row">
                 {materias.map((materia) => (
-                    <div className="col-md-4" key={materia._id}>
+                    <div className="col-md-4 mb-3" key={materia._id}>
                         <div className="card text-center">
                             <div className="card-body">
                                 <h5 className="card-title">

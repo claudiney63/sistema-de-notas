@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 function InputNotas({ label, value, onChange }) {
   return (
-    <input
-      type="number"
-      className="form-control"
-      placeholder={label}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      required
-    />
+    <InputGroup>
+          <InputGroup.Text id="basic-addon1">{label}</InputGroup.Text>
+          <Form.Control
+            placeholder={"Não Cadastrada"}
+            aria-label={label}
+            aria-describedby="basic-addon1"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            type="number"
+          />
+        </InputGroup>
+    // <input
+    //   type="number"
+    //   className="form-control"
+    //   placeholder={label}
+    //   value={value}
+    //   onChange={(e) => onChange(e.target.value)}
+    //   required
+    // />
   );
 }
 
@@ -56,6 +69,47 @@ export default function CadastrarNotas() {
     fetchAlunos();
     fetchMaterias();
   }, []);
+
+  useEffect(() => {
+    const fetchNotas = async () => {
+      if (alunoId && materiaId) {
+        try {
+          const response = await axios.get(
+            `https://sistema-de-notas-one.vercel.app/alunos/${alunoId}`
+          );
+          const aluno = response.data;
+
+          const nota = aluno.notas.find((n) => n.materia._id === materiaId)
+          if (nota) {
+            setNota1B1(nota.bimestres[0]?.notas[0] || "");
+            setNota2B1(nota.bimestres[0]?.notas[1] || "");
+            setNota1B2(nota.bimestres[1]?.notas[0] || "");
+            setNota2B2(nota.bimestres[1]?.notas[1] || "");
+            setNota1B3(nota.bimestres[2]?.notas[0] || "");
+            setNota2B3(nota.bimestres[2]?.notas[1] || "");
+            setNota1B4(nota.bimestres[3]?.notas[0] || "");
+            setNota2B4(nota.bimestres[3]?.notas[1] || "");
+            setFaltas(nota.faltas || "");
+          } else {
+            // Se não houver notas para a matéria selecionada, limpe os campos
+            setNota1B1("");
+            setNota2B1("");
+            setNota1B2("");
+            setNota2B2("");
+            setNota1B3("");
+            setNota2B3("");
+            setNota1B4("");
+            setNota2B4("");
+            setFaltas("");
+          }
+        } catch (error) {
+          console.error("Erro ao buscar notas:", error);
+        }
+      }
+    };
+
+    fetchNotas();
+  }, [alunoId, materiaId]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
