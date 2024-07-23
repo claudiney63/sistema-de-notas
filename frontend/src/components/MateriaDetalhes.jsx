@@ -137,20 +137,25 @@ export default function MateriaDetalhes() {
             <th>Turma</th>
             <th>AV1</th>
             <th>AV2</th>
+            <th>RB1</th>
             <th>MB1</th>
             <th>AV3</th>
             <th>AV4</th>
+            <th>RB2</th>
             <th>MB2</th>
             <th>MS1</th>
             <th>AV5</th>
             <th>AV6</th>
+            <th>RB3</th>
             <th>MB3</th>
             <th>AV7</th>
             <th>AV8</th>
+            <th>RB4</th>
             <th>MB4</th>
             <th>MS2</th>
             <th>MF</th>
-            <th>Resultado</th>
+            <th>R</th>
+            <th>F</th>
           </tr>
         </thead>
         <tbody>
@@ -159,8 +164,13 @@ export default function MateriaDetalhes() {
             const notasMateria = aluno.notas.find((nota) => nota.materia._id === id);
             const bimestres = notasMateria.bimestres;
             const mediasBimestrais = bimestres.map(
-              (bimestre) =>
-                bimestre.notas.reduce((a, b) => a + b, 0) / bimestre.notas.length
+              (bimestre) => {
+                // Pega as duas primeiras notas
+                const primeirasNotas = bimestre.notas.slice(0, 2);
+                // Calcula a média das duas primeiras notas
+                const somaNotas = primeirasNotas.reduce((a, b) => a + b, 0);
+                return somaNotas / primeirasNotas.length; // Calcula a média
+              }
             );
             const mediaSemestral1 = (mediasBimestrais[0] + mediasBimestrais[1]) / 2;
             const mediaSemestral2 = (mediasBimestrais[2] + mediasBimestrais[3]) / 2;
@@ -277,7 +287,8 @@ export default function MateriaDetalhes() {
                 <td style={getNotaStyle(mediasBimestrais[3])}>{mediasBimestrais[3].toFixed(1)}</td>
                 <td style={getNotaStyle(mediaSemestral2)}>{mediaSemestral2.toFixed(1)}</td>
                 <td style={getNotaStyle(mediaFinal)}>{mediaFinal.toFixed(1)}</td>
-                <td style={getNotaStyle(mediaFinal)}>{mediaFinal >= 6.0 ? "Aprovado" : "Reprovado"}</td>
+                <td style={getNotaStyle(mediaFinal)}>{mediaFinal >= 6.0 ? "A" : "R"}</td>
+                <td>{notasMateria.faltas}</td>
               </tr>
             );
           })}

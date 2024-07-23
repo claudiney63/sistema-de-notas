@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 function InputNotas({ label, value, onChange }) {
   return (
-    <input
-      type="number"
-      className="form-control"
-      placeholder={label}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      required
-    />
+    <InputGroup>
+      <InputGroup.Text id="basic-addon1">{label}</InputGroup.Text>
+      <Form.Control
+        placeholder={"Não Cadastrada"}
+        aria-label={label}
+        aria-describedby="basic-addon1"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        type="number"
+      />
+    </InputGroup>
+    // <input
+    //   type="number"
+    //   className="form-control"
+    //   placeholder={label}
+    //   value={value}
+    //   onChange={(e) => onChange(e.target.value)}
+    //   required
+    // />
   );
 }
 
@@ -20,14 +33,23 @@ export default function CadastrarNotas() {
   const [materias, setMaterias] = useState([]);
   const [alunoId, setAlunoId] = useState("");
   const [materiaId, setMateriaId] = useState("");
+
   const [nota1B1, setNota1B1] = useState("");
   const [nota2B1, setNota2B1] = useState("");
+  const [notaRecB1, setNotaRecB1] = useState("");
+
   const [nota1B2, setNota1B2] = useState("");
   const [nota2B2, setNota2B2] = useState("");
+  const [notaRecB2, setNotaRecB2] = useState("");
+
   const [nota1B3, setNota1B3] = useState("");
   const [nota2B3, setNota2B3] = useState("");
+  const [notaRecB3, setNotaRecB3] = useState("");
+
   const [nota1B4, setNota1B4] = useState("");
   const [nota2B4, setNota2B4] = useState("");
+  const [notaRecB4, setNotaRecB4] = useState("");
+
   const [faltas, setFaltas] = useState("");
 
   useEffect(() => {
@@ -57,15 +79,65 @@ export default function CadastrarNotas() {
     fetchMaterias();
   }, []);
 
+  useEffect(() => {
+    const fetchNotas = async () => {
+      if (alunoId && materiaId) {
+        try {
+          const response = await axios.get(
+            `https://sistema-de-notas-one.vercel.app/alunos/${alunoId}`
+          );
+          const aluno = response.data;
+
+          const nota = aluno.notas.find((n) => n.materia._id === materiaId);
+          console.log(nota);
+          if (nota) {
+            setNota1B1(nota.bimestres[0]?.notas[0] || "");
+            setNota2B1(nota.bimestres[0]?.notas[1] || "");
+            setNotaRecB1(nota.bimestres[0]?.notas[2] || "");
+            setNota1B2(nota.bimestres[1]?.notas[0] || "");
+            setNota2B2(nota.bimestres[1]?.notas[1] || "");
+            setNotaRecB2(nota.bimestres[1]?.notas[2] || "");
+            setNota1B3(nota.bimestres[2]?.notas[0] || "");
+            setNota2B3(nota.bimestres[2]?.notas[1] || "");
+            setNotaRecB3(nota.bimestres[2]?.notas[2] || "");
+            setNota1B4(nota.bimestres[3]?.notas[0] || "");
+            setNota2B4(nota.bimestres[3]?.notas[1] || "");
+            setNotaRecB4(nota.bimestres[3]?.notas[2] || "");
+            setFaltas(nota.faltas || "");
+          } else {
+            // Se não houver notas para a matéria selecionada, limpe os campos
+            setNota1B1("");
+            setNota2B1("");
+            setNotaRecB1("");
+            setNota1B2("");
+            setNota2B2("");
+            setNotaRecB2("");
+            setNota1B3("");
+            setNota2B3("");
+            setNotaRecB3("");
+            setNota1B4("");
+            setNota2B4("");
+            setNotaRecB4("");
+            setFaltas("");
+          }
+        } catch (error) {
+          console.error("Erro ao buscar notas:", error);
+        }
+      }
+    };
+
+    fetchNotas();
+  }, [alunoId, materiaId]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const notasBimestrais = [
-        [nota1B1, nota2B1],
-        [nota1B2, nota2B2],
-        [nota1B3, nota2B3],
-        [nota1B4, nota2B4],
+        [nota1B1, nota2B1, notaRecB1],
+        [nota1B2, nota2B2, notaRecB2],
+        [nota1B3, nota2B3, notaRecB3],
+        [nota1B4, nota2B4, notaRecB4],
       ];
 
       const response = await axios.post(
@@ -84,7 +156,6 @@ export default function CadastrarNotas() {
         button: "Fechar",
       });
       console.log("Notas cadastradas com sucesso:", response.data);
-      
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -113,11 +184,14 @@ export default function CadastrarNotas() {
             <option value="" disabled>
               Selecione um aluno
             </option>
-            {alunos.map((aluno) => (
-              <option key={aluno._id} value={aluno._id}>
-                {aluno.nome}
-              </option>
-            ))}
+            {alunos
+              .slice() // Faz uma cópia do array para evitar mutações
+              .sort((a, b) => a.nome.localeCompare(b.nome)) // Ordena os alunos por nome
+              .map((aluno) => (
+                <option key={aluno._id} value={aluno._id}>
+                  {aluno.nome}
+                </option>
+              ))}
           </select>
         </div>
         <div className="mb-3">
@@ -134,11 +208,14 @@ export default function CadastrarNotas() {
             <option value="" disabled>
               Selecione uma matéria
             </option>
-            {materias.map((materia) => (
-              <option key={materia._id} value={materia._id}>
-                {materia.nome}
-              </option>
-            ))}
+            {materias
+              .slice() // Faz uma cópia do array para evitar mutações
+              .sort((a, b) => a.nome.localeCompare(b.nome)) // Ordena as matérias por nome
+              .map((materia) => (
+                <option key={materia._id} value={materia._id}>
+                  {materia.nome}
+                </option>
+              ))}
           </select>
         </div>
         <div className="mb-3">
@@ -150,6 +227,13 @@ export default function CadastrarNotas() {
             <div className="col">
               <InputNotas label={"AV2"} value={nota2B1} onChange={setNota2B1} />
             </div>
+            <div className="col">
+              <InputNotas
+                label={"RB1"}
+                value={notaRecB1}
+                onChange={setNotaRecB1}
+              />
+            </div>
           </div>
           <div className="row mt-3">
             <div className="col">
@@ -157,6 +241,13 @@ export default function CadastrarNotas() {
             </div>
             <div className="col">
               <InputNotas label={"AV4"} value={nota2B2} onChange={setNota2B2} />
+            </div>
+            <div className="col">
+              <InputNotas
+                label={"RB2"}
+                value={notaRecB2}
+                onChange={setNotaRecB2}
+              />
             </div>
           </div>
           <div className="row mt-3">
@@ -166,6 +257,13 @@ export default function CadastrarNotas() {
             <div className="col">
               <InputNotas label={"AV6"} value={nota2B3} onChange={setNota2B3} />
             </div>
+            <div className="col">
+              <InputNotas
+                label={"RB3"}
+                value={notaRecB1}
+                onChange={setNotaRecB3}
+              />
+            </div>
           </div>
           <div className="row mt-3">
             <div className="col">
@@ -173,6 +271,13 @@ export default function CadastrarNotas() {
             </div>
             <div className="col">
               <InputNotas label={"AV8"} value={nota2B4} onChange={setNota2B4} />
+            </div>
+            <div className="col">
+              <InputNotas
+                label={"RB4"}
+                value={notaRecB4}
+                onChange={setNotaRecB4}
+              />
             </div>
           </div>
         </div>

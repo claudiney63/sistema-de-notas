@@ -2,7 +2,7 @@ import React from "react";
 
 function ContainerCard(props) {
   return (
-    <div className="col-md-6">
+    <div className="col-md-6 mb-3">
       <div className="card text-center">
         <div className="card-body">
           <h5 className="card-title">{props.titulo}</h5>
