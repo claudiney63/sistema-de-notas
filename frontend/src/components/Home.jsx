@@ -23,7 +23,7 @@ export default function Home() {
       <div className="container mt-5">
         <div className="row">
           <ContainerCard
-            titulo="Turmas"
+            titulo="Alunos"
             descricao="Acesso a lista de turmas."
             linkRoute="/alunos"
             linkText="Acessar Turmas"
