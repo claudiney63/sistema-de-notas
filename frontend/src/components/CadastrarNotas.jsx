@@ -260,7 +260,7 @@ export default function CadastrarNotas() {
             <div className="col">
               <InputNotas
                 label={"RB3"}
-                value={notaRecB1}
+                value={notaRecB3}
                 onChange={setNotaRecB3}
               />
             </div>
