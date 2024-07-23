@@ -4,7 +4,6 @@ import axios from "axios";
 
 export default function MateriaDetalhes() {
   const { id } = useParams();
-  const [isEditing, setIsEditing] = useState(false);
   const [alunos, setAlunos] = useState([]);
   const [turmas, setTurmas] = useState([]);
   const [materias, setMaterias] = useState([]);
@@ -46,48 +45,6 @@ export default function MateriaDetalhes() {
     return materia ? materia.nome : "Materia não encontrada";
   };
 
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
-  };
-
-  const handleNotaChange = (alunoId, bimestreIndex, notaIndex, newNota) => {
-    setAlunos((prevAlunos) =>
-      prevAlunos.map((aluno) => {
-        if (aluno._id === alunoId) {
-          const notasAtualizadas = aluno.notas.map((nota) => {
-            if (nota.materia === id) {
-              const bimestresAtualizados = nota.bimestres.map(
-                (bimestre, index) => {
-                  if (index === bimestreIndex) {
-                    const notasBimestreAtualizadas = bimestre.notas.map(
-                      (n, idx) => (idx === notaIndex ? parseFloat(newNota) : n)
-                    );
-                    const mediaBimestral =
-                      notasBimestreAtualizadas.reduce((a, b) => a + b, 0) /
-                      notasBimestreAtualizadas.length;
-                    return {
-                      ...bimestre,
-                      notas: notasBimestreAtualizadas,
-                      media: mediaBimestral,
-                    };
-                  }
-                  return bimestre;
-                }
-              );
-              return {
-                ...nota,
-                bimestres: bimestresAtualizados,
-              };
-            }
-            return nota;
-          });
-          return { ...aluno, notas: notasAtualizadas };
-        }
-        return aluno;
-      })
-    );
-  };
-
   const getNotaStyle = (nota) => ({
     backgroundColor: nota < 6 ? 'lightcoral' : 'lightblue',
   });
@@ -123,13 +80,7 @@ export default function MateriaDetalhes() {
           ))}
         </select>
       </div>
-      <>
-        {isEditing && (
-          <p className="text-danger">
-            Cuidado! As alterações feitas nas notas são salvas automaticamente.
-          </p>
-        )}
-      </>
+
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -184,23 +135,9 @@ export default function MateriaDetalhes() {
                   <React.Fragment key={`bimestre1-${bimestreIndex}`}>
                     {bimestre.notas.map((nota, notaIndex) => (
                       <td key={`nota1-${bimestreIndex}-${notaIndex}`}>
-                        {isEditing ? (
-                          <input
-                            type="number"
-                            value={nota}
-                            onChange={(e) =>
-                              handleNotaChange(
-                                aluno._id,
-                                bimestreIndex,
-                                notaIndex,
-                                e.target.value
-                              )
-                            }
-                            style={{ width: "50px" }}
-                          />
-                        ) : (
+                        {
                           nota
-                        )}
+                        }
                       </td>
                     ))}
                   </React.Fragment>
@@ -210,23 +147,9 @@ export default function MateriaDetalhes() {
                   <React.Fragment key={`bimestre2-${bimestreIndex}`}>
                     {bimestre.notas.map((nota, notaIndex) => (
                       <td key={`nota2-${bimestreIndex}-${notaIndex}`}>
-                        {isEditing ? (
-                          <input
-                            type="number"
-                            value={nota}
-                            onChange={(e) =>
-                              handleNotaChange(
-                                aluno._id,
-                                bimestreIndex + 2,
-                                notaIndex,
-                                e.target.value
-                              )
-                            }
-                            style={{ width: "50px" }}
-                          />
-                        ) : (
+                        {
                           nota
-                        )}
+                        }
                       </td>
                     ))}
                   </React.Fragment>
@@ -237,23 +160,9 @@ export default function MateriaDetalhes() {
                   <React.Fragment key={`bimestre3-${bimestreIndex}`}>
                     {bimestre.notas.map((nota, notaIndex) => (
                       <td key={`nota3-${bimestreIndex}-${notaIndex}`}>
-                        {isEditing ? (
-                          <input
-                            type="number"
-                            value={nota}
-                            onChange={(e) =>
-                              handleNotaChange(
-                                aluno._id,
-                                bimestreIndex + 4,
-                                notaIndex,
-                                e.target.value
-                              )
-                            }
-                            style={{ width: "50px" }}
-                          />
-                        ) : (
+                        {
                           nota
-                        )}
+                        }
                       </td>
                     ))}
                   </React.Fragment>
@@ -263,23 +172,9 @@ export default function MateriaDetalhes() {
                   <React.Fragment key={`bimestre4-${bimestreIndex}`}>
                     {bimestre.notas.map((nota, notaIndex) => (
                       <td key={`nota4-${bimestreIndex}-${notaIndex}`}>
-                        {isEditing ? (
-                          <input
-                            type="number"
-                            value={nota}
-                            onChange={(e) =>
-                              handleNotaChange(
-                                aluno._id,
-                                bimestreIndex + 6,
-                                notaIndex,
-                                e.target.value
-                              )
-                            }
-                            style={{ width: "50px" }}
-                          />
-                        ) : (
+                        {
                           nota
-                        )}
+                        }
                       </td>
                     ))}
                   </React.Fragment>
