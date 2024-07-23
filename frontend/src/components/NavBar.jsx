@@ -2,7 +2,7 @@ import React from 'react';
 
 function NavbarComponent() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light p-4 fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light p-4">
       <a className="navbar-brand fw-bold" href="/">
         Colégio CTE
       </a>
